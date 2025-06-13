@@ -33,7 +33,3 @@ func NewClient(email string, password string) (Client, error) {
 		password: hashedPassword,
 	}, nil
 }
-
-func (c *Client) GetAllCars() []int {
-	return []int{42, 1337}
-}
