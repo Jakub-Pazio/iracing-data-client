@@ -24,11 +24,11 @@ func (c *Client) authClient() error {
 	}
 
 	resp, err := c.httpClient.Post(authURL, "application/json", bytes.NewReader(rb))
-	if err != nil {
-		return err
+
+	if resp.StatusCode != 200 {
+		return fmt.Errorf("could not authenticate, status code: %d", resp.StatusCode)
 	}
 
-	_, err = io.ReadAll(resp.Body)
 	if err != nil {
 		return err
 	}
