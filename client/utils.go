@@ -44,7 +44,10 @@ func followLink[T any](client *Client, url string) (T, error) {
 	resp, err := client.httpClient.Get(url)
 	// we are probably not authed, so we try to auth and then perform the req again
 	if resp.StatusCode != 200 {
-		client.authClient()
+		err := client.authClient()
+		if err != nil {
+			return t, err
+		}
 		resp, err = client.httpClient.Get(url)
 	}
 	if err != nil {
@@ -86,7 +89,10 @@ func followLink2[T any](client *Client, url string) (T, error) {
 	resp, err := client.httpClient.Get(url)
 	// we are probably not authed, so we try to auth and then perform the req again
 	if resp.StatusCode != 200 {
-		client.authClient()
+		err := client.authClient()
+		if err != nil {
+			return t, err
+		}
 		resp, err = client.httpClient.Get(url)
 	}
 	if err != nil {
